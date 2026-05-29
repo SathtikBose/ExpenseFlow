@@ -10,6 +10,7 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import com.buildstack.expenseflow.presentation.expense.AddExpenseScreen
 import com.buildstack.expenseflow.presentation.income.IncomeSetupScreen
+import com.buildstack.expenseflow.presentation.analytics.AnalyticsScreen
 import com.buildstack.expenseflow.ui.main.MainScreen
 
 @Composable
@@ -29,6 +30,9 @@ fun MainNavigation() {
         }
         entry<AddExpense> {
           AddExpenseScreen(onNavigateBack = { backStack.removeLastOrNull() })
+        }
+        entry<Analytics> {
+          AnalyticsScreen(onBack = { backStack.removeLastOrNull() })
         }
       },
   )

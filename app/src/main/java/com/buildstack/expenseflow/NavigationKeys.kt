@@ -9,3 +9,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable data object AddExpense : NavKey
 
+@Serializable data object Analytics : NavKey
+

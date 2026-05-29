@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation3.runtime.NavKey
 import com.buildstack.expenseflow.AddExpense
+import com.buildstack.expenseflow.Analytics
 import com.buildstack.expenseflow.IncomeSetup
 import com.buildstack.expenseflow.core.theme.DangerColor
 import com.buildstack.expenseflow.core.theme.BackgroundColor
@@ -85,8 +86,13 @@ fun MainScreen(
                     fontWeight = FontWeight.Bold,
                     color = TextPrimary
                 )
-                IconButton(onClick = { onItemClick(IncomeSetup) }) {
-                    Text("⚙", fontSize = 24.sp, color = TextPrimary.copy(alpha = 0.7f))
+                Row {
+                    IconButton(onClick = { onItemClick(Analytics) }) {
+                        Text("📊", fontSize = 24.sp, color = TextPrimary.copy(alpha = 0.7f))
+                    }
+                    IconButton(onClick = { onItemClick(IncomeSetup) }) {
+                        Text("⚙", fontSize = 24.sp, color = TextPrimary.copy(alpha = 0.7f))
+                    }
                 }
             }
 
