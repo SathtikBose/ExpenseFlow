@@ -12,10 +12,17 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+import com.buildstack.expenseflow.domain.usecase.GetExpenseByIdUseCase
+import com.buildstack.expenseflow.domain.usecase.UpdateExpenseUseCase
+
 @HiltViewModel
 class AddExpenseViewModel @Inject constructor(
-    private val addExpenseUseCase: AddExpenseUseCase
+    private val addExpenseUseCase: AddExpenseUseCase,
+    private val updateExpenseUseCase: UpdateExpenseUseCase,
+    private val getExpenseByIdUseCase: GetExpenseByIdUseCase
 ) : ViewModel() {
+
+    private var currentExpenseId: Int? = null
 
     private val _amount = MutableStateFlow("")
     val amount: StateFlow<String> = _amount.asStateFlow()
@@ -26,8 +33,20 @@ class AddExpenseViewModel @Inject constructor(
     private val _note = MutableStateFlow("")
     val note: StateFlow<String> = _note.asStateFlow()
 
+    fun loadExpense(id: Int) {
+        if (id == -1) return
+        currentExpenseId = id
+        viewModelScope.launch {
+            val expense = getExpenseByIdUseCase(id)
+            if (expense != null) {
+                _amount.value = expense.amount.toString()
+                _selectedCategory.value = expense.category
+                _note.value = expense.note
+            }
+        }
+    }
+
     fun onAmountChange(newAmount: String) {
-        // Simple numeric/decimal validation
         if (newAmount.isEmpty() || newAmount.matches(Regex("^\\d*\\.?\\d*$"))) {
             _amount.value = newAmount
         }
@@ -45,13 +64,17 @@ class AddExpenseViewModel @Inject constructor(
         val expenseAmount = _amount.value.toDoubleOrNull()
         if (expenseAmount != null && expenseAmount > 0) {
             viewModelScope.launch {
-                addExpenseUseCase(
-                    Expense(
-                        amount = expenseAmount,
-                        category = _selectedCategory.value,
-                        note = _note.value
-                    )
+                val expense = Expense(
+                    id = currentExpenseId ?: 0,
+                    amount = expenseAmount,
+                    category = _selectedCategory.value,
+                    note = _note.value
                 )
+                if (currentExpenseId != null) {
+                    updateExpenseUseCase(expense)
+                } else {
+                    addExpenseUseCase(expense)
+                }
                 onSuccess()
             }
         }

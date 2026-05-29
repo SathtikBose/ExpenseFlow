@@ -33,4 +33,10 @@ abstract class RepositoryModule {
     abstract fun bindDashboardRepository(
         dashboardRepositoryImpl: DashboardRepositoryImpl
     ): DashboardRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindGoalRepository(
+        goalRepositoryImpl: com.buildstack.expenseflow.data.repository.GoalRepositoryImpl
+    ): com.buildstack.expenseflow.domain.repository.GoalRepository
 }

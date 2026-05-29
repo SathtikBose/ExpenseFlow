@@ -13,12 +13,18 @@ interface ExpenseDao {
     @Query("SELECT * FROM expenses ORDER BY date DESC")
     fun getAllExpenses(): Flow<List<ExpenseEntity>>
 
+    @Query("SELECT * FROM expenses WHERE id = :id")
+    suspend fun getExpenseById(id: Int): ExpenseEntity?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertExpense(expense: ExpenseEntity): Long
+    suspend fun insertExpense(expense: ExpenseEntity): Long
 
     @Query("DELETE FROM expenses")
-    fun clearAllExpenses()
+    suspend fun clearAllExpenses(): Int
 
     @Delete
-    fun deleteExpense(expense: ExpenseEntity): Int
+    suspend fun deleteExpense(expense: ExpenseEntity): Int
+
+    @androidx.room.Update
+    suspend fun updateExpense(expense: ExpenseEntity): Int
 }

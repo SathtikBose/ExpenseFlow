@@ -1,6 +1,7 @@
 package com.buildstack.expenseflow.ui.main
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -52,13 +54,41 @@ fun MainScreen(
     viewModel: DashboardViewModel = hiltViewModel()
 ) {
     val dashboardData by viewModel.dashboardData.collectAsState()
+    var selectedExpense by androidx.compose.runtime.remember { 
+        androidx.compose.runtime.mutableStateOf<com.buildstack.expenseflow.domain.model.Expense?>(null) 
+    }
+
+    if (selectedExpense != null) {
+        androidx.compose.material3.AlertDialog(
+            onDismissRequest = { selectedExpense = null },
+            title = { Text("Expense Options", color = TextPrimary) },
+            text = { Text("What would you like to do with this expense?", color = TextPrimary.copy(alpha = 0.7f)) },
+            confirmButton = {
+                androidx.compose.material3.TextButton(onClick = {
+                    onItemClick(AddExpense(selectedExpense!!.id))
+                    selectedExpense = null
+                }) {
+                    Text("Edit", color = PrimaryColor)
+                }
+            },
+            dismissButton = {
+                androidx.compose.material3.TextButton(onClick = {
+                    viewModel.deleteExpense(selectedExpense!!)
+                    selectedExpense = null
+                }) {
+                    Text("Delete", color = DangerColor)
+                }
+            },
+            containerColor = SurfaceColor
+        )
+    }
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
         containerColor = BackgroundColor,
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { onItemClick(AddExpense) },
+                onClick = { onItemClick(AddExpense()) },
                 containerColor = PrimaryColor,
                 contentColor = Color.White
             ) {
@@ -88,6 +118,9 @@ fun MainScreen(
                 )
                 Row {
                     val context = androidx.compose.ui.platform.LocalContext.current
+                    IconButton(onClick = { onItemClick(com.buildstack.expenseflow.Goals) }) {
+                        Text("🎯", fontSize = 24.sp, color = TextPrimary.copy(alpha = 0.7f))
+                    }
                     IconButton(onClick = {
                         val pdfFile = com.buildstack.expenseflow.core.util.PdfGenerator.generatePdf(context, dashboardData)
                         if (pdfFile != null) {
@@ -212,6 +245,7 @@ fun MainScreen(
                             .animateItem()
                             .clip(RoundedCornerShape(16.dp))
                             .background(SurfaceColor.copy(alpha = 0.5f))
+                            .clickable { selectedExpense = expense }
                             .padding(16.dp),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically

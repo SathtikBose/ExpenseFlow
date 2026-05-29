@@ -22,18 +22,26 @@ object DatabaseModule {
             app,
             AppDatabase::class.java,
             "expenseflow_db"
-        ).build()
+        )
+        .fallbackToDestructiveMigration()
+        .build()
     }
 
     @Provides
     @Singleton
     fun provideIncomeDao(db: AppDatabase): IncomeDao {
-        return db.incomeDao
+        return db.incomeDao()
     }
 
     @Provides
     @Singleton
     fun provideExpenseDao(db: AppDatabase): ExpenseDao {
-        return db.expenseDao
+        return db.expenseDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideGoalDao(db: AppDatabase): com.buildstack.expenseflow.data.local.dao.GoalDao {
+        return db.goalDao()
     }
 }

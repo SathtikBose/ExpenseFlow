@@ -52,6 +52,7 @@ import com.buildstack.expenseflow.domain.model.ExpenseCategory
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun AddExpenseScreen(
+    expenseId: Int = -1,
     viewModel: AddExpenseViewModel = hiltViewModel(),
     onNavigateBack: () -> Unit
 ) {
@@ -62,6 +63,7 @@ fun AddExpenseScreen(
     var isVisible by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
+        viewModel.loadExpense(expenseId)
         isVisible = true
     }
 
@@ -84,7 +86,7 @@ fun AddExpenseScreen(
                 verticalArrangement = Arrangement.spacedBy(20.dp)
             ) {
                 Text(
-                    text = "Add Expense",
+                    text = if (expenseId != -1) "Edit Expense" else "Add Expense",
                     fontSize = 28.sp,
                     fontWeight = FontWeight.Bold,
                     color = TextPrimary

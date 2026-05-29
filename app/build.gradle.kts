@@ -100,3 +100,7 @@ dependencies {
   // DataStore
   implementation(libs.datastore.preferences)
 }
+
+ksp {
+  arg("room.generateKotlin", "true")
+}

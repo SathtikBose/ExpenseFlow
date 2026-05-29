@@ -8,6 +8,7 @@ class SaveIncomeUseCase @Inject constructor(
     private val repository: IncomeRepository
 ) {
     suspend operator fun invoke(income: Income) {
+        repository.clearAllIncome()
         repository.insertIncome(income)
     }
 }

@@ -7,7 +7,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable data object IncomeSetup : NavKey
 
-@Serializable data object AddExpense : NavKey
+@Serializable data class AddExpense(val expenseId: Int = -1) : NavKey
 
 @Serializable data object Analytics : NavKey
+
+@Serializable data object Goals : NavKey
 

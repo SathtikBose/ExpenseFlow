@@ -28,11 +28,17 @@ fun MainNavigation() {
         entry<IncomeSetup> {
           IncomeSetupScreen(onIncomeSaved = { backStack.removeLastOrNull() })
         }
-        entry<AddExpense> {
-          AddExpenseScreen(onNavigateBack = { backStack.removeLastOrNull() })
+        entry<AddExpense> { navKey ->
+          AddExpenseScreen(
+              expenseId = navKey.expenseId,
+              onNavigateBack = { backStack.removeLastOrNull() }
+          )
         }
         entry<Analytics> {
           AnalyticsScreen(onBack = { backStack.removeLastOrNull() })
+        }
+        entry<Goals> {
+          com.buildstack.expenseflow.presentation.goals.GoalsScreen(onBack = { backStack.removeLastOrNull() })
         }
       },
   )

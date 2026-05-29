@@ -18,11 +18,11 @@ interface IncomeDao {
     fun getTotalIncome(): Flow<Double?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertIncome(income: IncomeEntity): Long
+    suspend fun insertIncome(income: IncomeEntity): Long
 
     @Query("DELETE FROM income")
-    fun clearAllIncome()
+    suspend fun clearAllIncome(): Int
 
     @Delete
-    fun deleteIncome(income: IncomeEntity): Int
+    suspend fun deleteIncome(income: IncomeEntity): Int
 }
