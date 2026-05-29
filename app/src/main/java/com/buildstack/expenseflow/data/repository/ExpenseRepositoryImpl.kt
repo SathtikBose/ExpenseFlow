@@ -27,6 +27,12 @@ class ExpenseRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun clearAllExpenses() {
+        withContext(Dispatchers.IO) {
+            dao.clearAllExpenses()
+        }
+    }
+
     override suspend fun deleteExpense(expense: Expense) {
         withContext(Dispatchers.IO) {
             dao.deleteExpense(expense.toEntity())

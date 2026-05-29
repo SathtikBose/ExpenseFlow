@@ -31,6 +31,12 @@ class IncomeRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun clearAllIncome() {
+        withContext(Dispatchers.IO) {
+            dao.clearAllIncome()
+        }
+    }
+
     override suspend fun deleteIncome(income: Income) {
         withContext(Dispatchers.IO) {
             dao.deleteIncome(income.toEntity())

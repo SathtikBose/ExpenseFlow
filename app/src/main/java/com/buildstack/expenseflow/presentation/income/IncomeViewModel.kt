@@ -12,10 +12,13 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+import com.buildstack.expenseflow.domain.usecase.ResetFinancialCycleUseCase
+
 @HiltViewModel
 class IncomeViewModel @Inject constructor(
     private val getTotalIncomeUseCase: GetTotalIncomeUseCase,
-    private val saveIncomeUseCase: SaveIncomeUseCase
+    private val saveIncomeUseCase: SaveIncomeUseCase,
+    private val resetFinancialCycleUseCase: ResetFinancialCycleUseCase
 ) : ViewModel() {
 
     val totalIncome: StateFlow<Double> = getTotalIncomeUseCase()
@@ -33,6 +36,12 @@ class IncomeViewModel @Inject constructor(
                     source = "Salary" // Default for now
                 )
             )
+        }
+    }
+
+    fun resetFinancialCycle() {
+        viewModelScope.launch {
+            resetFinancialCycleUseCase()
         }
     }
 }

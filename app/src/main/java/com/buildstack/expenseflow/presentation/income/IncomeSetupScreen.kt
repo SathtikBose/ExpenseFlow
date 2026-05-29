@@ -144,6 +144,53 @@ fun IncomeSetupScreen(
                         color = Color.White
                     )
                 }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                var showResetDialog by remember { mutableStateOf(false) }
+
+                Button(
+                    onClick = { showResetDialog = true },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(56.dp)
+                        .clip(RoundedCornerShape(16.dp)),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = DangerColor
+                    )
+                ) {
+                    Text(
+                        text = "Reset Monthly Data",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = Color.White
+                    )
+                }
+
+                if (showResetDialog) {
+                    androidx.compose.material3.AlertDialog(
+                        onDismissRequest = { showResetDialog = false },
+                        title = { Text("Reset Data?", color = TextPrimary) },
+                        text = { Text("This will delete all income and expense records. Are you sure you want to start fresh?", color = TextPrimary.copy(alpha = 0.8f)) },
+                        confirmButton = {
+                            androidx.compose.material3.TextButton(
+                                onClick = {
+                                    viewModel.resetFinancialCycle()
+                                    showResetDialog = false
+                                    onIncomeSaved() // Navigate back
+                                }
+                            ) {
+                                Text("Yes, Reset", color = DangerColor)
+                            }
+                        },
+                        dismissButton = {
+                            androidx.compose.material3.TextButton(onClick = { showResetDialog = false }) {
+                                Text("Cancel", color = PrimaryColor)
+                            }
+                        },
+                        containerColor = SurfaceColor
+                    )
+                }
             }
         }
     }

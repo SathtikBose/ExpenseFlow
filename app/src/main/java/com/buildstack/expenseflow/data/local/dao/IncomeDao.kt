@@ -20,6 +20,9 @@ interface IncomeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertIncome(income: IncomeEntity): Long
 
+    @Query("DELETE FROM income")
+    fun clearAllIncome()
+
     @Delete
     fun deleteIncome(income: IncomeEntity): Int
 }

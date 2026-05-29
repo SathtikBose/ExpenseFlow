@@ -8,4 +8,5 @@ interface IncomeRepository {
     fun getTotalIncome(): Flow<Double>
     suspend fun insertIncome(income: Income)
     suspend fun deleteIncome(income: Income)
+    suspend fun clearAllIncome()
 }

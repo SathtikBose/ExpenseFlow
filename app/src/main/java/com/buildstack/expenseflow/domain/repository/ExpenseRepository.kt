@@ -7,4 +7,5 @@ interface ExpenseRepository {
     fun getAllExpenses(): Flow<List<Expense>>
     suspend fun insertExpense(expense: Expense)
     suspend fun deleteExpense(expense: Expense)
+    suspend fun clearAllExpenses()
 }
