@@ -1,4 +1,4 @@
-﻿package com.buildstack.expenseflow
+package com.buildstack.expenseflow
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
@@ -8,6 +8,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
+import com.buildstack.expenseflow.presentation.income.IncomeSetupScreen
 import com.buildstack.expenseflow.ui.main.MainScreen
 
 @Composable
@@ -21,6 +22,9 @@ fun MainNavigation() {
       entryProvider {
         entry<Main> {
           MainScreen(onItemClick = { navKey -> backStack.add(navKey) }, modifier = Modifier.safeDrawingPadding().padding(16.dp))
+        }
+        entry<IncomeSetup> {
+          IncomeSetupScreen(onIncomeSaved = { backStack.removeLastOrNull() })
         }
       },
   )
