@@ -87,6 +87,24 @@ fun MainScreen(
                     color = TextPrimary
                 )
                 Row {
+                    val context = androidx.compose.ui.platform.LocalContext.current
+                    IconButton(onClick = {
+                        val pdfFile = com.buildstack.expenseflow.core.util.PdfGenerator.generatePdf(context, dashboardData)
+                        if (pdfFile != null) {
+                            val uri = androidx.core.content.FileProvider.getUriForFile(
+                                context,
+                                "${context.packageName}.fileprovider",
+                                pdfFile
+                            )
+                            val intent = android.content.Intent(android.content.Intent.ACTION_VIEW).apply {
+                                setDataAndType(uri, "application/pdf")
+                                addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                            }
+                            context.startActivity(android.content.Intent.createChooser(intent, "Open Report"))
+                        }
+                    }) {
+                        Text("📄", fontSize = 24.sp, color = TextPrimary.copy(alpha = 0.7f))
+                    }
                     IconButton(onClick = { onItemClick(Analytics) }) {
                         Text("📊", fontSize = 24.sp, color = TextPrimary.copy(alpha = 0.7f))
                     }
