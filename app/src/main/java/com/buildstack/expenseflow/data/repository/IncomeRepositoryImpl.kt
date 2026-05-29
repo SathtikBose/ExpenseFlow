@@ -7,6 +7,8 @@ import com.buildstack.expenseflow.domain.model.Income
 import com.buildstack.expenseflow.domain.repository.IncomeRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 class IncomeRepositoryImpl @Inject constructor(
@@ -24,10 +26,14 @@ class IncomeRepositoryImpl @Inject constructor(
     }
 
     override suspend fun insertIncome(income: Income) {
-        dao.insertIncome(income.toEntity())
+        withContext(Dispatchers.IO) {
+            dao.insertIncome(income.toEntity())
+        }
     }
 
     override suspend fun deleteIncome(income: Income) {
-        dao.deleteIncome(income.toEntity())
+        withContext(Dispatchers.IO) {
+            dao.deleteIncome(income.toEntity())
+        }
     }
 }

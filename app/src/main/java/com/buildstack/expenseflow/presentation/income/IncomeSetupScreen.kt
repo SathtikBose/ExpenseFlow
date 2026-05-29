@@ -40,11 +40,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.buildstack.expenseflow.core.theme.AccentColor
+import com.buildstack.expenseflow.core.theme.DangerColor
 import com.buildstack.expenseflow.core.theme.BackgroundColor
 import com.buildstack.expenseflow.core.theme.PrimaryColor
 import com.buildstack.expenseflow.core.theme.SurfaceColor
-import com.buildstack.expenseflow.core.theme.TextColor
+import com.buildstack.expenseflow.core.theme.TextPrimary
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -95,14 +95,14 @@ fun IncomeSetupScreen(
                     text = "Set Monthly Income",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
-                    color = TextColor,
+                    color = TextPrimary,
                     style = MaterialTheme.typography.headlineMedium
                 )
 
                 Text(
                     text = "Current: $${String.format("%.2f", totalIncome)}",
                     fontSize = 16.sp,
-                    color = TextColor.copy(alpha = 0.7f)
+                    color = TextPrimary.copy(alpha = 0.7f)
                 )
 
                 OutlinedTextField(
@@ -113,11 +113,11 @@ fun IncomeSetupScreen(
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = PrimaryColor,
                         unfocusedBorderColor = PrimaryColor.copy(alpha = 0.5f),
-                        focusedTextColor = TextColor,
-                        unfocusedTextColor = TextColor,
+                        focusedTextColor = TextPrimary,
+                        unfocusedTextColor = TextPrimary,
                         focusedLabelColor = PrimaryColor,
-                        unfocusedLabelColor = TextColor.copy(alpha = 0.7f),
-                        cursorColor = AccentColor
+                        unfocusedLabelColor = TextPrimary.copy(alpha = 0.7f),
+                        cursorColor = DangerColor
                     ),
                     modifier = Modifier.fillMaxWidth()
                 )

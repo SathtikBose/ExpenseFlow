@@ -1,7 +1,9 @@
 package com.buildstack.expenseflow.di
 
+import com.buildstack.expenseflow.data.repository.DashboardRepositoryImpl
 import com.buildstack.expenseflow.data.repository.ExpenseRepositoryImpl
 import com.buildstack.expenseflow.data.repository.IncomeRepositoryImpl
+import com.buildstack.expenseflow.domain.repository.DashboardRepository
 import com.buildstack.expenseflow.domain.repository.ExpenseRepository
 import com.buildstack.expenseflow.domain.repository.IncomeRepository
 import dagger.Binds
@@ -25,4 +27,10 @@ abstract class RepositoryModule {
     abstract fun bindExpenseRepository(
         expenseRepositoryImpl: ExpenseRepositoryImpl
     ): ExpenseRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindDashboardRepository(
+        dashboardRepositoryImpl: DashboardRepositoryImpl
+    ): DashboardRepository
 }

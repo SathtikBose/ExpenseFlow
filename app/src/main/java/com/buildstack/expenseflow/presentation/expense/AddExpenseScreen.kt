@@ -42,11 +42,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.buildstack.expenseflow.core.theme.AccentColor
+import com.buildstack.expenseflow.core.theme.DangerColor
 import com.buildstack.expenseflow.core.theme.BackgroundColor
 import com.buildstack.expenseflow.core.theme.PrimaryColor
 import com.buildstack.expenseflow.core.theme.SurfaceColor
-import com.buildstack.expenseflow.core.theme.TextColor
+import com.buildstack.expenseflow.core.theme.TextPrimary
 import com.buildstack.expenseflow.domain.model.ExpenseCategory
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
@@ -87,7 +87,7 @@ fun AddExpenseScreen(
                     text = "Add Expense",
                     fontSize = 28.sp,
                     fontWeight = FontWeight.Bold,
-                    color = TextColor
+                    color = TextPrimary
                 )
 
                 // Amount Input (Large for fast entry)
@@ -100,10 +100,10 @@ fun AddExpenseScreen(
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = PrimaryColor,
                         unfocusedBorderColor = PrimaryColor.copy(alpha = 0.5f),
-                        focusedTextColor = TextColor,
-                        unfocusedTextColor = TextColor,
+                        focusedTextColor = TextPrimary,
+                        unfocusedTextColor = TextPrimary,
                         focusedLabelColor = PrimaryColor,
-                        cursorColor = AccentColor
+                        cursorColor = DangerColor
                     ),
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true
@@ -113,7 +113,7 @@ fun AddExpenseScreen(
                     text = "Category",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.SemiBold,
-                    color = TextColor
+                    color = TextPrimary
                 )
 
                 // Category Chips
@@ -139,10 +139,10 @@ fun AddExpenseScreen(
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = PrimaryColor,
                         unfocusedBorderColor = PrimaryColor.copy(alpha = 0.5f),
-                        focusedTextColor = TextColor,
-                        unfocusedTextColor = TextColor,
+                        focusedTextColor = TextPrimary,
+                        unfocusedTextColor = TextPrimary,
                         focusedLabelColor = PrimaryColor,
-                        cursorColor = AccentColor
+                        cursorColor = DangerColor
                     ),
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -187,7 +187,7 @@ fun CategoryChip(
     ) {
         Text(
             text = category.displayName,
-            color = if (isSelected) Color.White else TextColor,
+            color = if (isSelected) Color.White else TextPrimary,
             fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
             fontSize = 14.sp
         )

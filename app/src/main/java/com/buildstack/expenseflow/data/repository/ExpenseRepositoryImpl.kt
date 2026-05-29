@@ -7,6 +7,8 @@ import com.buildstack.expenseflow.domain.model.Expense
 import com.buildstack.expenseflow.domain.repository.ExpenseRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 class ExpenseRepositoryImpl @Inject constructor(
@@ -20,10 +22,14 @@ class ExpenseRepositoryImpl @Inject constructor(
     }
 
     override suspend fun insertExpense(expense: Expense) {
-        dao.insertExpense(expense.toEntity())
+        withContext(Dispatchers.IO) {
+            dao.insertExpense(expense.toEntity())
+        }
     }
 
     override suspend fun deleteExpense(expense: Expense) {
-        dao.deleteExpense(expense.toEntity())
+        withContext(Dispatchers.IO) {
+            dao.deleteExpense(expense.toEntity())
+        }
     }
 }
