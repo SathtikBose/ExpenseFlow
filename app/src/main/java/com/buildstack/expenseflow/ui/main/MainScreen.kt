@@ -138,11 +138,14 @@ fun MainScreen(
                         color = TextPrimary.copy(alpha = 0.7f)
                     )
                     Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        text = "$${String.format("%.2f", dashboardData.balance)}",
-                        fontSize = 36.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = TextPrimary
+                    com.buildstack.expenseflow.presentation.components.AnimatedCounter(
+                        count = dashboardData.balance,
+                        prefix = "$",
+                        style = androidx.compose.ui.text.TextStyle(
+                            fontSize = 36.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = TextPrimary
+                        )
                     )
                     Spacer(modifier = Modifier.height(24.dp))
                     Row(
@@ -155,11 +158,14 @@ fun MainScreen(
                                 fontSize = 14.sp,
                                 color = TextPrimary.copy(alpha = 0.6f)
                             )
-                            Text(
-                                text = "+$${String.format("%.2f", dashboardData.totalIncome)}",
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.SemiBold,
-                                color = PrimaryColor
+                            com.buildstack.expenseflow.presentation.components.AnimatedCounter(
+                                count = dashboardData.totalIncome,
+                                prefix = "+$",
+                                style = androidx.compose.ui.text.TextStyle(
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = PrimaryColor
+                                )
                             )
                         }
                         Column(horizontalAlignment = Alignment.End) {
@@ -168,11 +174,14 @@ fun MainScreen(
                                 fontSize = 14.sp,
                                 color = TextPrimary.copy(alpha = 0.6f)
                             )
-                            Text(
-                                text = "-$${String.format("%.2f", dashboardData.totalExpenses)}",
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.SemiBold,
-                                color = DangerColor
+                            com.buildstack.expenseflow.presentation.components.AnimatedCounter(
+                                count = dashboardData.totalExpenses,
+                                prefix = "-$",
+                                style = androidx.compose.ui.text.TextStyle(
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = DangerColor
+                                )
                             )
                         }
                     }
@@ -193,10 +202,14 @@ fun MainScreen(
             LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                items(dashboardData.recentExpenses) { expense ->
+                items(
+                    items = dashboardData.recentExpenses,
+                    key = { expense -> expense.id }
+                ) { expense ->
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
+                            .animateItem()
                             .clip(RoundedCornerShape(16.dp))
                             .background(SurfaceColor.copy(alpha = 0.5f))
                             .padding(16.dp),
