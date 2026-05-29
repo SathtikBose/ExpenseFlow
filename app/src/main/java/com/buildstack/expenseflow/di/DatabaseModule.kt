@@ -3,6 +3,7 @@ package com.buildstack.expenseflow.di
 import android.app.Application
 import androidx.room.Room
 import com.buildstack.expenseflow.data.local.AppDatabase
+import com.buildstack.expenseflow.data.local.dao.ExpenseDao
 import com.buildstack.expenseflow.data.local.dao.IncomeDao
 import dagger.Module
 import dagger.Provides
@@ -28,5 +29,11 @@ object DatabaseModule {
     @Singleton
     fun provideIncomeDao(db: AppDatabase): IncomeDao {
         return db.incomeDao
+    }
+
+    @Provides
+    @Singleton
+    fun provideExpenseDao(db: AppDatabase): ExpenseDao {
+        return db.expenseDao
     }
 }

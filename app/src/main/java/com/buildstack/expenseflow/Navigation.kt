@@ -8,6 +8,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
+import com.buildstack.expenseflow.presentation.expense.AddExpenseScreen
 import com.buildstack.expenseflow.presentation.income.IncomeSetupScreen
 import com.buildstack.expenseflow.ui.main.MainScreen
 
@@ -25,6 +26,9 @@ fun MainNavigation() {
         }
         entry<IncomeSetup> {
           IncomeSetupScreen(onIncomeSaved = { backStack.removeLastOrNull() })
+        }
+        entry<AddExpense> {
+          AddExpenseScreen(onNavigateBack = { backStack.removeLastOrNull() })
         }
       },
   )

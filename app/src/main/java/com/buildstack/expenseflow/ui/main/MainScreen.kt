@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.NavKey
+import com.buildstack.expenseflow.AddExpense
 import com.buildstack.expenseflow.IncomeSetup
 
 @Composable
@@ -21,6 +22,9 @@ fun MainScreen(
             Text("Dashboard (Coming Soon)")
             Button(onClick = { onItemClick(IncomeSetup) }) {
                 Text("Setup Income")
+            }
+            Button(onClick = { onItemClick(AddExpense) }) {
+                Text("Add Expense")
             }
         }
     }
